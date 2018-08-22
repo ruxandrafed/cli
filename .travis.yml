@@ -1,0 +1,24 @@
+if: tag IS blank
+
+language: node_js
+
+node_js:
+  - 10
+  - 8
+  - 6
+
+cache:
+  directories:
+    - node_modules
+
+stages:
+  - test
+  - release
+
+jobs:
+  include:
+    - stage: release
+      node: 10
+      script: npx semantic-release
+      if: branch = master
+      if: type IN (push)
